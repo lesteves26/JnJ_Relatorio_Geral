@@ -18,9 +18,9 @@ with st.container():
     #ano = ['2023', '2024']
     #ano_selecionado = st.sidebar.multiselect('Selecione o ano', ano)
 
-    logo = (r'C:\Users\Lucas Esteves Pereir\Documents\Relatorio JnJ - Streamlit\Relatorio_JnJ\Imagem1 vamover.png')
+    #logo = (r'C:\Users\Lucas Esteves Pereir\Documents\Relatorio JnJ - Streamlit\Relatorio_JnJ\Imagem1 vamover.png')
     
-    st.logo(logo)
+    #st.logo(logo)
 
 
 #Gráficos
