@@ -24,24 +24,29 @@ with st.container():
 
 
 #Gráficos
-eventos = pd.read_excel(r'C:\Users\Lucas Esteves Pereir\Documents\Relatorio JnJ - Streamlit\Relatorio_JnJ\template real.xlsx')
+uploaded_file = st.file_uploader("Escolha um arquivo Excel", type="xlsx")
+if uploaded_file is not None:
+    eventos = pd.read_excel(uploaded_file)
+    st.write(eventos)
 
-eventos['data_nova'] = pd.to_datetime(eventos['Data'], errors='coerce')
+    eventos = pd.read_excel(r'C:\Users\Lucas Esteves Pereir\Documents\Relatorio JnJ - Streamlit\Relatorio_JnJ\template real.xlsx')
 
-eventos['Ano'] = eventos['Data'].dt.year
-eventos['Mês'] = eventos['Data'].dt.to_period('M')
+    eventos['data_nova'] = pd.to_datetime(eventos['Data'], errors='coerce')
 
-anos = eventos['Ano'].dropna().unique()
+    eventos['Ano'] = eventos['Data'].dt.year
+    eventos['Mês'] = eventos['Data'].dt.to_period('M')
 
-ano_selecionado = st.sidebar.multiselect('Selecionar ano', anos, default=anos)
+    anos = eventos['Ano'].dropna().unique()
 
-eventos_filtrados = eventos[eventos['Ano'].isin(ano_selecionado)]
+    ano_selecionado = st.sidebar.multiselect('Selecionar ano', anos, default=anos)
 
-eventos_por_mes = eventos_filtrados.groupby (['Mês', 'Tipo']).size().unstack(fill_value=0)
+    eventos_filtrados = eventos[eventos['Ano'].isin(ano_selecionado)]
 
-eventos_por_mes.index = eventos_por_mes.index.to_timestamp()
-eventos_por_mes = eventos_por_mes.sort_index()
-st.write(f'Acidentes e multas por mês - {ano_selecionado}')
+    eventos_por_mes = eventos_filtrados.groupby (['Mês', 'Tipo']).size().unstack(fill_value=0)
+
+    eventos_por_mes.index = eventos_por_mes.index.to_timestamp()
+    eventos_por_mes = eventos_por_mes.sort_index()
+    st.write(f'Acidentes e multas por mês - {ano_selecionado}')
 
 
-st.line_chart(eventos_por_mes)
+    st.line_chart(eventos_por_mes)
