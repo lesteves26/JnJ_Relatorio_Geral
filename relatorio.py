@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import openpyxl
 
 st.set_page_config(page_title="Relatório Geral J&J Brasil")
 
